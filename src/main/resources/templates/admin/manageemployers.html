@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Manage Employers - HireHub</title>
+
+<link rel="stylesheet"
+      href="/bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<div th:replace="~{fragments/aheader :: aheader}"></div>
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Registered Employers</h2>
+
+        <span class="badge bg-success fs-6">
+            Total Employers:
+            <span th:text="${#lists.size(employers)}"></span>
+        </span>
+    </div>
+
+    <div class="card shadow">
+
+        <div class="card-body">
+
+            <table class="table table-bordered table-striped table-hover">
+
+                <thead class="table-dark">
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Company</th>
+                        <th>Employer</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Industry</th>
+                        <th width="120">Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr th:each="employer : ${employers}">
+
+                        <td th:text="${employer.id}"></td>
+
+                        <td th:text="${employer.companyName}"></td>
+
+                        <td th:text="${employer.employerName}"></td>
+
+                        <td th:text="${employer.email}"></td>
+
+                        <td th:text="${employer.phone}"></td>
+
+                        <td th:text="${employer.industry}"></td>
+
+                        <td>
+                            <a th:href="@{/admin/deleteemployer/{id}(id=${employer.id})}"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Delete this employer?')">
+                                Delete
+                            </a>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div th:replace="~{fragments/afooter :: afooter}"></div>
+
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

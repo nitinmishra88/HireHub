@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employer Registration - HireHub</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background: linear-gradient(to right, #e3f2fd, #ffffff);
+        }
+
+        .register-box {
+            max-width: 520px;
+            margin: 60px auto;
+            padding: 35px;
+            background: rgba(0, 123, 255, 0.08);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 150, 255, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #0d6efd;
+        }
+
+        .required {
+            color: red;
+        }
+
+        .form-control, select {
+            border-radius: 10px;
+        }
+
+        .btn-custom {
+            width: 100%;
+            border-radius: 10px;
+            background-color: #0d6efd;
+            color: white;
+        }
+
+        .btn-custom:hover {
+            background-color: #084298;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="container">
+    <div class="register-box">
+
+        <h2>Employer Registration</h2>
+
+        <form th:action="@{/register/employer}" method="post" th:object="${employer}">
+
+            <!-- Company Name -->
+            <div class="mb-3">
+                <label>Company Name <span class="required">*</span></label>
+                <input type="text" th:field="*{companyName}" class="form-control" required>
+                <div class="error" th:errors="*{companyName}"></div>
+            </div>
+
+            <!-- Employer Name -->
+            <div class="mb-3">
+                <label>Employer Name <span class="required">*</span></label>
+                <input type="text" th:field="*{employerName}" class="form-control" required>
+                <div class="error" th:errors="*{employerName}"></div>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label>Email <span class="required">*</span></label>
+                <input type="email" th:field="*{email}" class="form-control" required>
+                <div class="error" th:errors="*{email}"></div>
+            </div>
+
+            <!-- Phone -->
+            <div class="mb-3">
+                <label>Phone <span class="required">*</span></label>
+                <input type="text" th:field="*{phone}" class="form-control" required>
+                <div class="error" th:errors="*{phone}"></div>
+            </div>
+
+            <!-- Website -->
+            <div class="mb-3">
+                <label>Company Website</label>
+                <input type="url" th:field="*{website}" class="form-control" placeholder="https://example.com">
+            </div>
+
+            <!-- Industry -->
+            <div class="mb-3">
+				<select th:field="*{industry}" class="form-control" required>
+				    <option value="">Select Industry</option>
+				    <option value="IT / Software">IT / Software</option>
+				    <option value="Banking / Finance">Banking / Finance</option>
+				    <option value="Healthcare">Healthcare</option>
+				    <option value="Education">Education</option>
+				    <option value="E-commerce">E-commerce</option>
+				    <option value="Manufacturing">Manufacturing</option>
+				    <option value="Telecom">Telecom</option>
+				    <option value="Media / Entertainment">Media / Entertainment</option>
+				    <option value="Construction">Construction</option>
+				    <option value="Other">Other</option>
+				</select>
+                <div class="error" th:errors="*{industry}"></div>
+            </div>
+
+            <!-- Location -->
+            <div class="mb-3">
+                <label>Location <span class="required">*</span></label>
+                <input type="text" th:field="*{location}" class="form-control" required>
+                <div class="error" th:errors="*{location}"></div>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+                <label>Password <span class="required">*</span></label>
+                <input type="password" th:field="*{password}" class="form-control" required>
+                <div class="error" th:errors="*{password}"></div>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="mb-3">
+                <label>Confirm Password <span class="required">*</span></label>
+                <input type="password" name="confirmPassword" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-custom">Register</button>
+
+        </form>
+
+        <div class="text-center mt-3">
+            <small>Already have an account? <a href="/login">Login</a></small>
+        </div>
+
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

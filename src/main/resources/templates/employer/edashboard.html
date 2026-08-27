@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1">
+
+<title>Employer Dashboard - HireHub</title>
+
+<link rel="stylesheet"
+href="/bootstrap/css/bootstrap.min.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+
+body{
+
+background:#f5f7fb;
+
+font-family:'Segoe UI',sans-serif;
+
+}
+
+
+/* Welcome Card */
+
+.welcome-box{
+
+background:linear-gradient(
+135deg,
+#2563eb,
+#4f46e5);
+
+padding:35px;
+
+border-radius:28px;
+
+color:white;
+
+box-shadow:
+
+0 12px 35px rgba(0,0,0,.12);
+
+}
+
+
+/* Profile Image */
+
+.company-profile{
+
+width:95px;
+
+height:95px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+background:white;
+
+border:4px solid rgba(255,255,255,.25);
+
+box-shadow:
+
+0 8px 25px rgba(0,0,0,.15);
+
+}
+
+
+/* Cards */
+
+.dashboard-card{
+
+background:white;
+
+border:none;
+
+border-radius:24px;
+
+padding:28px;
+
+height:100%;
+
+box-shadow:
+
+0 8px 25px rgba(0,0,0,.05);
+
+transition:.3s;
+
+}
+
+.dashboard-card:hover{
+
+transform:translateY(-6px);
+
+box-shadow:
+
+0 18px 35px rgba(0,0,0,.08);
+
+}
+
+
+/* Icons */
+
+.action-icon{
+
+width:70px;
+
+height:70px;
+
+border-radius:18px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:28px;
+
+margin:auto;
+
+margin-bottom:20px;
+
+}
+
+.profile-icon{
+
+background:#dbeafe;
+
+color:#2563eb;
+
+}
+
+.job-icon{
+
+background:#e0f2fe;
+
+color:#0284c7;
+
+}
+
+.application-icon{
+
+background:#ede9fe;
+
+color:#4f46e5;
+
+}
+
+
+/* Buttons */
+
+.btn{
+
+border:none;
+
+border-radius:12px;
+
+padding:10px 20px;
+
+font-weight:600;
+
+}
+
+.btn-primary{
+
+background:#2563eb;
+
+}
+
+.btn-info{
+
+background:#0284c7;
+
+color:white;
+
+}
+
+.btn-purple{
+
+background:#4f46e5;
+
+color:white;
+
+}
+
+
+/* Section Title */
+
+.section-title{
+
+font-size:22px;
+
+font-weight:700;
+
+margin-bottom:25px;
+
+}
+
+
+/* Info Row */
+
+.info-row{
+
+display:flex;
+
+justify-content:space-between;
+
+padding:16px 0;
+
+border-bottom:1px solid #e2e8f0;
+
+}
+
+.info-row:last-child{
+
+border:none;
+
+}
+
+
+/* Statistics */
+
+.stat-box{
+
+padding:18px;
+
+border-radius:16px;
+
+background:#f8fafc;
+
+margin-bottom:18px;
+
+}
+
+.stat-number{
+
+font-size:32px;
+
+font-weight:700;
+
+color:#2563eb;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div th:replace="/fragments/eheader :: eheader"></div>
+
+<div class="container mt-5 mb-5">
+
+
+<!-- Welcome -->
+
+<div class="welcome-box mb-5">
+
+<div class="d-flex align-items-center flex-wrap">
+
+<div class="me-4">
+
+<img
+
+th:if="${employer.companyLogo != null}"
+
+th:src="@{'/uploads/' + ${employer.companyLogo}}"
+
+class="company-profile"
+
+alt="Company Logo">
+
+
+<img
+
+th:unless="${employer.companyLogo != null}"
+
+src="https://ui-avatars.com/api/?name=Company"
+
+class="company-profile"
+
+alt="Company">
+
+</div>
+
+
+<div>
+
+<h2 class="fw-bold mb-2">
+
+Welcome,
+
+<span th:text="${employer.employerName}">
+
+Employer
+
+</span>
+
+</h2>
+
+<p class="mb-0">
+
+Manage jobs, applications and company profile from one place.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- Action Cards -->
+
+<div class="row g-4 mb-5">
+
+
+<div class="col-lg-4">
+
+<div class="dashboard-card text-center">
+
+<div class="action-icon profile-icon">
+
+<i class="fa-solid fa-building"></i>
+
+</div>
+
+<h4>Profile</h4>
+
+<p class="text-secondary">
+
+View and edit your company profile.
+
+</p>
+
+<a href="/employer/eprofile"
+
+class="btn btn-primary">
+
+View Profile
+
+</a>
+
+</div>
+
+</div>
+
+
+
+<div class="col-lg-4">
+
+<div class="dashboard-card text-center">
+
+<div class="action-icon job-icon">
+
+<i class="fa-solid fa-briefcase"></i>
+
+</div>
+
+<h4>Manage Jobs</h4>
+
+<p class="text-secondary">
+
+Create and manage job postings.
+
+</p>
+
+<a href="/employer/managejobs"
+
+class="btn btn-info">
+
+Manage Jobs
+
+</a>
+
+</div>
+
+</div>
+
+
+
+<div class="col-lg-4">
+
+<div class="dashboard-card text-center">
+
+<div class="action-icon application-icon">
+
+<i class="fa-solid fa-file-lines"></i>
+
+</div>
+
+<h4>Applications</h4>
+
+<p class="text-secondary">
+
+Review candidate applications.
+
+</p>
+
+<a href="/employer/applications"
+
+class="btn btn-purple">
+
+View Applications
+
+</a>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<!-- Bottom Section -->
+
+<div class="row g-4">
+
+
+<div class="col-lg-6">
+
+<div class="dashboard-card">
+
+<h4 class="section-title">
+
+Company Information
+
+</h4>
+
+<div class="info-row">
+
+<strong>Employer</strong>
+
+<span th:text="${employer.employerName}"></span>
+
+</div>
+
+<div class="info-row">
+
+<strong>Email</strong>
+
+<span th:text="${employer.email}"></span>
+
+</div>
+
+<div class="info-row">
+
+<strong>Phone</strong>
+
+<span th:text="${employer.phone}"></span>
+
+</div>
+
+<div class="info-row">
+
+<strong>Company</strong>
+
+<span th:text="${employer.companyName}"></span>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="col-lg-6">
+
+<div class="dashboard-card">
+
+<h4 class="section-title">
+
+Statistics
+
+</h4>
+
+
+<div class="stat-box">
+
+<small>Total Jobs Posted</small>
+
+<div class="stat-number"
+
+th:text="${totalJobs}">
+
+0
+
+</div>
+
+</div>
+
+
+<div class="stat-box">
+
+<small>Total Applications Received</small>
+
+<div class="stat-number"
+
+th:text="${totalApplications}">
+
+0
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+<div th:replace="/fragments/efooter :: efooter"></div>
+
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Post Job - HireHub</title>
+
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <style>
+        .hero {
+            background: linear-gradient(120deg, #0d6efd, #0b5ed7);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .job-form-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .form-label {
+            font-weight: 600;
+        }
+
+        .btn-submit {
+            padding: 10px 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Employer Header -->
+<div th:replace="/fragments/eheader :: eheader"></div>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <h1>Post a New Job</h1>
+        <p class="lead">Reach thousands of talented candidates through HireHub</p>
+    </div>
+</section>
+
+<!-- Job Form -->
+<section class="py-5 bg-light">
+    <div class="container">
+
+        <div class="card job-form-card">
+            <div class="card-body p-4">
+
+                <h3 class="mb-4 text-primary">Job Details</h3>
+
+                <form th:action="@{/employer/savejob}" method="post">
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Job Title</label>
+                            <input type="text"
+                                   name="jobTitle"
+                                   class="form-control"
+                                   required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Job Type</label>
+                            <select name="jobType"
+                                    class="form-select"
+                                    required>
+                                <option value="">Select</option>
+                                <option>Full Time</option>
+                                <option>Part Time</option>
+                                <option>Internship</option>
+                                <option>Remote</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Location</label>
+                            <input type="text"
+                                   name="location"
+                                   class="form-control"
+                                   required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Salary Package</label>
+                            <input type="text"
+                                   name="salary"
+                                   class="form-control"
+                                   placeholder="e.g. 6 LPA"
+                                   required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Experience Required</label>
+                            <input type="text"
+                                   name="experience"
+                                   class="form-control"
+                                   placeholder="e.g. 2 Years">
+                        </div>
+						<div class="col-md-6 mb-3">
+						    <label class="form-label">Number of Vacancies</label>
+						    <input type="number"
+						           name="vacancies"
+						           class="form-control"
+						           min="1"
+						           required>
+						</div>
+						
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Required Skills</label>
+                            <input type="text"
+                                   name="skillsRequired"
+                                   class="form-control"
+                                   placeholder="Skills">
+                        </div>
+						<div class="col-md-6 mb-3">
+						    <label class="form-label">Application Deadline</label>
+						    <input type="date"
+						           name="applicationDeadline"
+						           class="form-control"
+						           required>
+						</div>
+						
+                        <div class="col-12 mb-3">
+                            <label class="form-label">Job Description</label>
+                            <textarea name="description"
+                                      rows="6"
+                                      class="form-control"
+                                      required></textarea>
+                        </div>
+
+                    </div>
+					
+
+                    <div class="text-center mt-4">
+                        <button type="submit"
+                                class="btn btn-primary btn-submit">
+                            Post Job
+                        </button>
+
+                        <a href="/employer/dashboard"
+                           class="btn btn-outline-secondary ms-2">
+                            Cancel
+                        </a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Footer -->
+<div th:replace="/fragments/efooter :: efooter"></div>
+
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+

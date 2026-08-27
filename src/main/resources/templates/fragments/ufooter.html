@@ -1,0 +1,50 @@
+<div th:fragment="ufooter">
+
+	<footer class="bg-dark text-light pt-5 pb-3">
+
+		<div class="container text-center">
+
+			<!-- Branding -->
+			<p class="fw-bold mb-1">
+				<span style="color:#00c6ff;">Hire</span>
+				<span style="color:#000;">Hub</span>
+			</p>
+
+			<!-- Description -->
+			<p class="small mb-2">
+				Find jobs, build your career, and connect with top companies easily.
+			</p>
+
+			<!-- Links -->
+			<p class="mb-2">
+
+				<a href="/jobs" class="text-decoration-none text-light">Jobs</a> |
+
+				<a href="/contact" class="text-decoration-none text-light">Help</a>
+			</p>
+
+			<!-- Policies -->
+			<p class="mb-2">
+				<a href="#" class="text-decoration-none text-light">Help Center</a> |
+				<a href="#" class="text-decoration-none text-light">Privacy Policy</a> |
+				<a href="#" class="text-decoration-none text-light">Terms of Service</a>
+			</p>
+
+			<!-- User Info -->
+			<small>
+				Logged in as
+				<span th:text="${session.user != null ? session.user.name : 'User'}"></span>
+			</small>
+
+			<!-- Copyright -->
+			<p class="mt-2 mb-0 small">
+				&copy; 2026 HireHub. All rights reserved.
+			</p>
+
+		</div>
+
+	</footer>
+
+</div>
+
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>

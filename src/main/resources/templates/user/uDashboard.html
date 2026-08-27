@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1">
+
+<title>User Dashboard - HireHub</title>
+
+<link rel="stylesheet"
+href="/bootstrap/css/bootstrap.min.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+
+body{
+
+	Background : #f5f7fb;
+
+font-family:'Segoe UI',sans-serif;
+
+}
+
+
+/* Success Alert */
+
+.alert{
+
+border:none;
+
+border-radius:15px;
+
+}
+
+
+/* Welcome Section */
+
+.welcome-box{
+
+background:linear-gradient(
+135deg,
+#2563eb,
+#4f46e5);
+
+padding:40px;
+
+border-radius:28px;
+
+color:white;
+
+box-shadow:
+
+0 12px 35px rgba(0,0,0,.12);
+
+}
+
+.welcome-box h3{
+
+font-size:34px;
+
+font-weight:700;
+
+}
+
+.welcome-box p{
+
+font-size:16px;
+
+opacity:.9;
+
+}
+
+
+/* Main Cards */
+
+.dashboard-card{
+
+background:white;
+
+border:none;
+
+border-radius:24px;
+
+padding:28px;
+
+box-shadow:
+
+0 8px 25px rgba(0,0,0,.05);
+
+transition:.3s;
+
+height:100%;
+
+}
+
+.dashboard-card:hover{
+
+transform:translateY(-6px);
+
+box-shadow:
+
+0 16px 35px rgba(0,0,0,.08);
+
+}
+
+
+/* Action Cards */
+
+.action-icon{
+
+width:70px;
+
+height:70px;
+
+border-radius:18px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:28px;
+
+margin:auto;
+
+margin-bottom:20px;
+
+}
+
+.profile-icon{
+
+background:#dbeafe;
+
+color:#2563eb;
+
+}
+
+.job-icon{
+
+background:#ccfbf1;
+
+color:#0f766e;
+
+}
+
+.application-icon{
+
+background:#ede9fe;
+
+color:#4f46e5;
+
+}
+
+
+/* Buttons */
+
+.btn{
+
+border:none;
+
+border-radius:12px;
+
+padding:10px 20px;
+
+font-weight:600;
+
+}
+
+.btn-primary{
+
+background:#2563eb;
+
+}
+
+.btn-success{
+
+background:#0f766e;
+
+}
+
+.btn-purple{
+
+background:#4f46e5;
+
+color:white;
+
+}
+
+
+/* Info Rows */
+
+.info-row{
+
+display:flex;
+
+justify-content:space-between;
+
+padding:16px 0;
+
+border-bottom:1px solid #e2e8f0;
+
+}
+
+.info-row:last-child{
+
+border:none;
+
+}
+
+
+/* Progress */
+
+.progress{
+
+height:14px;
+
+border-radius:30px;
+
+background:#e2e8f0;
+
+}
+
+.progress-bar{
+
+background:linear-gradient(
+90deg,
+#2563eb,
+#4f46e5);
+
+border-radius:30px;
+
+}
+
+/* Welcome Card */
+
+.welcome-box{
+
+background:linear-gradient(
+135deg,
+#2563eb,
+#4f46e5);
+
+padding:35px;
+
+border-radius:28px;
+
+color:white;
+
+box-shadow:
+
+0 12px 35px rgba(0,0,0,.12);
+
+}
+
+
+/* Profile Photo */
+
+.welcome-profile{
+
+width:95px;
+
+height:95px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+border:4px solid rgba(255,255,255,.25);
+
+background:white;
+
+box-shadow:
+
+0 8px 25px rgba(0,0,0,.15);
+
+}
+
+
+/* Heading */
+
+.welcome-box h2{
+
+font-size:32px;
+
+font-weight:700;
+
+}
+
+
+/* Description */
+
+.welcome-box p{
+
+font-size:16px;
+
+opacity:.9;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div th:replace="/fragments/uheader :: uheader"></div>
+
+
+<div class="container mt-5 mb-5">
+
+
+<!-- Success Message -->
+
+<div th:if="${successMessage}"
+
+id="successAlert"
+
+class="alert alert-success">
+
+<strong>Success!</strong>
+
+<span th:text="${successMessage}"></span>
+
+</div>
+
+
+
+<!-- Welcome -->
+
+<!-- Welcome Section -->
+
+<div class="welcome-box mb-5">
+
+<div class="d-flex align-items-center flex-wrap">
+
+	<!-- Profile Photo -->
+
+	<div class="me-4">
+
+		<img
+
+		th:if="${user.profilePhoto != null}"
+
+		th:src="@{'/uploads/' + ${user.profilePhoto}}"
+
+		class="welcome-profile"
+
+		alt="Profile">
+
+
+		<img
+
+		th:unless="${user.profilePhoto != null}"
+
+		src="https://ui-avatars.com/api/?name=User"
+
+		class="welcome-profile"
+
+		alt="Profile">
+
+	</div>
+
+
+	<!-- Welcome Text -->
+
+	<div class="flex-grow-1">
+
+		<h2 class="mb-2 fw-bold">
+
+			Welcome,
+
+			<span th:text="${user.name}">
+
+				User
+
+			</span>
+
+		</h2>
+
+
+		<p class="mb-0">
+
+			Track your profile, explore jobs and grow your career with HireHub.
+
+		</p>
+
+	</div>
+
+</div>
+
+</div>
+<!-- Action Cards -->
+
+<div class="row g-4 mb-5">
+
+
+<div class="col-lg-4">
+
+<div class="dashboard-card text-center">
+
+<div class="action-icon profile-icon">
+
+<i class="fa-solid fa-user"></i>
+
+</div>
+
+<h4>Profile</h4>
+
+<p class="text-secondary">
+
+Manage your personal details
+
+</p>
+
+<a href="/user/profile"
+
+class="btn btn-primary">
+
+View Profile
+
+</a>
+
+</div>
+
+</div>
+
+
+<div class="col-lg-4">
+
+<div class="dashboard-card text-center">
+
+<div class="action-icon job-icon">
+
+<i class="fa-solid fa-briefcase"></i>
+
+</div>
+
+<h4>Jobs</h4>
+
+<p class="text-secondary">
+
+Browse and apply for jobs
+
+</p>
+
+<a href="/jobs"
+
+class="btn btn-success">
+
+Find Jobs
+
+</a>
+
+</div>
+
+</div>
+
+
+<div class="col-lg-4">
+
+<div class="dashboard-card text-center">
+
+<div class="action-icon application-icon">
+
+<i class="fa-solid fa-file-lines"></i>
+
+</div>
+
+<h4>Applications</h4>
+
+<p class="text-secondary">
+
+Check your application status
+
+</p>
+
+<a href="/user/applications"
+
+class="btn btn-purple">
+
+View Applications
+
+</a>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<!-- Bottom Cards -->
+
+<div class="row g-4">
+
+
+<div class="col-lg-6">
+
+<div class="dashboard-card">
+
+<h4 class="section-title">
+
+Basic Information
+
+</h4>
+
+<div class="info-row">
+
+<strong>Name</strong>
+
+<span th:text="${user.name}"></span>
+
+</div>
+
+<div class="info-row">
+
+<strong>Email</strong>
+
+<span th:text="${user.email}"></span>
+
+</div>
+
+<div class="info-row">
+
+<strong>Phone</strong>
+
+<span th:text="${user.phone}"></span>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="col-lg-6">
+
+<div class="dashboard-card">
+
+<h4 class="section-title">
+
+Profile Completion
+
+</h4>
+
+<p>
+
+Complete your profile to get better job matches.
+
+</p>
+
+<div class="progress my-4">
+
+<div class="progress-bar"
+
+th:style="'width:'+${profileCompletion}+'%'">
+
+</div>
+
+</div>
+
+<h3 class="mb-4">
+
+<span th:text="${profileCompletion}">
+
+0
+
+</span>
+
+%
+
+</h3>
+
+<a href="/user/complete-profile"
+
+class="btn btn-success">
+
+Complete/Edit Profile
+
+</a>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<div th:replace="/fragments/ufooter :: ufooter"></div>
+
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+setTimeout(function(){
+
+let alert=document.getElementById(
+
+"successAlert"
+
+);
+
+if(alert){
+
+alert.style.opacity="0";
+
+setTimeout(function(){
+
+alert.remove();
+
+},500);
+
+}
+
+},2500);
+
+</script>
+
+</body>
+
+</html>

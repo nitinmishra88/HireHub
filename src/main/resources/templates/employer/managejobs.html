@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Manage Jobs - HireHub</title>
+
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+<style>
+
+.hero{
+    background: linear-gradient(120deg,#0d6efd,#0b5ed7);
+    color:white;
+    padding:60px 0;
+    text-align:center;
+}
+
+.table-card{
+    border:none;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div th:replace="/fragments/eheader :: eheader"></div>
+
+<section class="hero">
+    <div class="container">
+        <h1>Manage Jobs</h1>
+        <p class="lead">
+            View and manage all your posted jobs
+        </p>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+
+<div class="container">
+
+<div class="card table-card">
+
+<div class="card-body">
+
+<h3 class="text-primary mb-4">
+    Posted Jobs
+</h3>
+
+<div class="table-responsive">
+
+<table class="table table-bordered table-hover">
+
+<thead class="table-primary">
+
+<tr>
+    <th>ID</th>
+    <th>Job Title</th>
+    <th>Location</th>
+    <th>Type</th>
+    <th>Salary</th>
+    <th>Vacancies</th>
+    <th>Posted Date</th>
+    <th>Action</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr th:each="job : ${jobs}">
+
+<td th:text="${job.id}"></td>
+
+<td th:text="${job.jobTitle}"></td>
+
+<td th:text="${job.location}"></td>
+
+<td th:text="${job.jobType}"></td>
+
+<td th:text="${job.salary}"></td>
+
+<td th:text="${job.vacancies}"></td>
+
+<td th:text="${job.postedDate}"></td>
+
+<td>
+
+<a th:href="@{/employer/deletejob/{id}(id=${job.id})}"
+   class="btn btn-danger btn-sm"
+   onclick="return confirm('Delete this job?')">
+
+    Delete
+
+</a>
+
+</td>
+
+</tr>
+
+<tr th:if="${#lists.isEmpty(jobs)}">
+
+<td colspan="8" class="text-center text-muted">
+
+No Jobs Posted Yet
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<div th:replace="/fragments/efooter :: efooter"></div>
+
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

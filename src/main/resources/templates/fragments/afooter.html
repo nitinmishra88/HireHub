@@ -1,0 +1,40 @@
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+<style>
+    .footer{
+        background: linear-gradient(90deg,#0072ff,#00c6ff);
+        color: white;
+    }
+</style>
+
+<div th:fragment="afooter">
+
+<footer class="bg-dark text-light pt-5 pb-3">
+
+<div class="container text-center">
+
+<p class="mb-1 fw-bold">
+    &copy; 2026 HireHub Admin Panel
+</p>
+
+<p class="mb-2">
+    <a href="/admin/dashboard" class="text-white text-decoration-none">Dashboard</a> |
+    <a href="/admin/users" class="text-white text-decoration-none">Manage Users</a> |
+    <a href="#" class="text-white text-decoration-none">Reports</a>
+</p>
+
+<small>
+    Logged in as 
+    <span th:if="${session.admin != null}"
+          th:text="${session.admin.name}">
+        Admin
+    </span>
+</small>
+
+</div>
+
+</footer>
+
+</div>
+
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>

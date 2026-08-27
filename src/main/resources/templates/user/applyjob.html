@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Apply Job</title>
+
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+<style>
+
+body{
+    background:#f5f7fa;
+}
+
+.card{
+    border:none;
+    border-radius:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div th:replace="/fragments/uheader :: uheader"></div>
+
+<div class="container mt-5 mb-5">
+
+<div class="card shadow">
+
+<div class="card-body p-4">
+
+<h2 class="mb-4">Apply For Job</h2>
+
+<div class="alert alert-primary">
+
+    <h5 th:text="${job.jobTitle}"></h5>
+
+    <p class="mb-1">
+        <strong>Company:</strong>
+        <span th:text="${job.companyName}"></span>
+    </p>
+
+    <p class="mb-0">
+        <strong>Location:</strong>
+        <span th:text="${job.location}"></span>
+    </p>
+
+</div>
+
+<form th:action="@{/user/apply/{id}(id=${job.id})}"
+      method="post">
+<div class="row">
+
+<div class="col-md-6 mb-3">
+<label class="form-label">Full Name</label>
+<input type="text"
+       name="name"
+       class="form-control"
+       th:value="${user.name}">
+</div>
+
+<div class="col-md-6 mb-3">
+<label class="form-label">Email</label>
+<input type="email"
+       name="email"
+       class="form-control"
+       th:value="${user.email}">
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+<label class="form-label">Phone</label>
+<input type="text"
+       name="phone"
+       class="form-control"
+       th:value="${user.phone}">
+</div>
+
+<div class="col-md-6 mb-3">
+<label class="form-label">Qualification</label>
+<input type="text"
+       name="qualification"
+       class="form-control"
+       th:value="${user.qualification}">
+</div>
+
+</div>
+
+<div class="mb-3">
+<label class="form-label">Experience</label>
+
+<input type="text"
+       name="experience"
+       class="form-control"
+       th:value="${user.experience}">
+</div>
+
+<div class="mb-3">
+<label class="form-label">Skills</label>
+
+<textarea class="form-control"
+          rows="3"
+          name="skills"
+          th:text="${user.skills}">
+</textarea>
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+Resume
+</label>
+
+<div class="border rounded p-3">
+
+<a th:if="${user.resume != null}"
+   th:href="@{'/uploads/' + ${user.resume}}"
+   target="_blank"
+   class="btn btn-outline-primary">
+
+    View Current Resume
+
+</a>
+
+<span th:if="${user.resume == null}"
+      class="text-danger">
+
+      Resume Not Uploaded
+
+</span>
+
+</div>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+Why Should We Hire You?
+</label>
+
+<textarea class="form-control"
+          rows="4"
+          name="coverLetter"
+          placeholder="Write a short introduction...">
+</textarea>
+
+</div>
+
+<button type="submit"
+        class="btn btn-success w-100">
+
+    Apply Now
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+<div th:replace="/fragments/ufooter :: ufooter"></div>
+
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

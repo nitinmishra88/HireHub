@@ -1,0 +1,16 @@
+<!-- Employer Footer -->
+<div th:fragment="efooter">
+<footer class="bg-dark text-light pt-5 pb-3">
+    <div class="container text-center">
+        <p>&copy; 2026 HireHub. All rights reserved.</p>
+        <p>
+            <a href="#">Help Center</a> | 
+            <a href="#">Privacy Policy</a> | 
+            <a href="#">Terms of Service</a>
+        </p>
+        <small>Logged in as <span th:text="${employer != null ? employer.employerName : 'Employer'}">
+		</span></small>
+    </div>
+</footer>
+</div>
+	

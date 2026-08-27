@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Login - HireHub</title>
+
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <style>
+        body{
+            background: linear-gradient(to right, #e3f2fd, #ffffff);
+        }
+        .login-card{
+            border-radius: 12px;
+			margin-bottom: 5%;
+        }
+      
+    </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+
+        <div class="col-md-5">
+
+            <div class="card login-card shadow">
+
+                <div class="card-body">
+
+                    <h3 class="text-center mb-4 fw-bold">Admin Login</h3>
+
+                    <!-- Error Message -->
+                    <div th:if="${errorMessage}" 
+                         class="alert alert-danger text-center" 
+                         th:text="${errorMessage}" id="errorMessage">
+                    </div>
+
+                    <!-- Success Message -->
+                    <div th:if="${successMessage}" 
+                         class="alert alert-success text-center" 
+                         th:text="${successMessage}" id="errorMessage">
+                    </div>
+
+                    <!-- Form -->
+                    <form th:action="@{/login/admin}" method="post">
+
+                        <div class="mb-3">
+                            <label class="form-label">Email <span class="text-danger">*</span></label>
+                            <input type="email" name="email" class="form-control"
+                                   placeholder="Enter admin email" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password" class="form-control"
+                                   placeholder="Enter password" required minlength="6">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 fw-bold">
+                            Login as Admin
+                        </button>
+
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <small class="text-muted">
+                            Only authorized admin can login
+                        </small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script>
+	const msg = document.getElementById('errorMessage');
+	       if(msg){
+	           setTimeout(() => {
+	               msg.style.display = 'none';
+	           }, 3000);
+	       }
+   </script>
+
+</body>
+</html>

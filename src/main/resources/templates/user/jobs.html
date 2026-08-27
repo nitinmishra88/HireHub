@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>Find Jobs - HireHub</title>
+
+    <link rel="stylesheet"
+          href="/bootstrap/css/bootstrap.min.css">
+
+    <style>
+
+        body{
+            background:#f5f7fa;
+        }
+
+		.hero {
+				background: linear-gradient(120deg, #0d6efd, #0b5ed7);
+				color: white;
+				padding: 100px 0;
+				text-align: center;
+			}
+
+			.hero h1 {
+				font-size: 50px;
+				font-weight: bold;
+			}
+
+			.search-box {
+				background: white;
+				padding: 25px;
+				border-radius: 10px;
+				box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+			}
+
+        
+        .job-card{
+            border:none;
+            border-radius:15px;
+            transition:0.3s;
+            background:white;
+        }
+
+        .job-card:hover{
+            transform:translateY(-5px);
+            box-shadow:0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .search-box{
+            border-radius:30px;
+            padding:12px 20px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div th:replace="/fragments/uheader :: uheader"></div>
+
+   
+
+		<section class="hero">
+
+				<div class="container">
+
+					<h1>Find Your Dream Job</h1>
+					<p class="lead mt-3">Thousands of jobs are waiting for you</p>
+
+					<div class="row justify-content-center mt-4">
+
+						<div class="col-md-8">
+
+							<div class="search-box">
+
+								<form action="/search-jobs" method="get">
+
+								    <div class="row g-2">
+
+								        <div class="col-md-5">
+								            <input type="text"
+								                   name="keyword"
+								                   class="form-control"
+								                   placeholder="Job title or keyword">
+								        </div>
+
+								        <div class="col-md-4">
+								            <input type="text"
+								                   name="location"
+								                   class="form-control"
+								                   placeholder="Location">
+								        </div>
+
+								        <div class="col-md-3">
+								            <button type="submit"
+								                    class="btn btn-primary w-100">
+								                Search Job
+								            </button>
+								        </div>
+
+								    </div>
+
+								</form>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</section>
+			<div class="container mt-5 mb-5">
+        <!-- JOBS -->
+        <div class="row g-4">
+
+            <div class="col-md-4"
+                 th:each="job : ${jobs}">
+
+                <div class="card job-card p-3 h-100">
+
+                    <div class="d-flex justify-content-between align-items-start">
+
+                        <div>
+
+                            <h5 th:text="${job.jobTitle}">
+                                Job Title
+                            </h5>
+
+                            <p class="text-muted mb-2"
+                               th:text="${job.companyName}">
+                                Company
+                            </p>
+
+                        </div>
+
+                        <!-- Company Logo -->
+                        <img th:if="${job.employer.companyLogo != null}"
+                             th:src="@{'/uploads/' + ${job.employer.companyLogo}}"
+                             class="rounded-circle border shadow-sm"
+                             style="width:70px;height:70px;object-fit:cover;">
+
+                        <!-- Default Logo -->
+                        <img th:if="${job.employer.companyLogo == null}"
+                             src="https://via.placeholder.com/70"
+                             class="rounded-circle border shadow-sm"
+                             style="width:70px;height:70px;object-fit:cover;">
+
+                    </div>
+
+                    <hr>
+
+                    <p>
+                        <strong>Location:</strong>
+                        <span th:text="${job.location}"></span>
+                    </p>
+
+                    <p>
+                        <strong>Job Type:</strong>
+                        <span th:text="${job.jobType}"></span>
+                    </p>
+
+                    <p>
+                        <strong>Salary:</strong>
+                        <span th:text="${job.salary}"></span>
+                    </p>
+
+                    <p>
+                        <strong>Experience:</strong>
+                        <span th:text="${job.experience}"></span>
+                    </p>
+
+                    <p class="text-muted small">
+
+                        <strong>Description:</strong>
+
+                        <span th:text="${#strings.abbreviate(job.description,100)}">
+                        </span>
+
+                    </p>
+
+                    <div class="mt-auto">
+
+                        <a th:href="@{/apply-job/{id}(id=${job.id})}"
+                           class="btn btn-primary w-100">
+
+                            Apply Now
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- NO JOBS MESSAGE -->
+        <div class="text-center mt-5"
+             th:if="${#lists.isEmpty(jobs)}">
+
+            <h4 class="text-muted">
+                No Jobs Available Right Now
+            </h4>
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div th:replace="/fragments/ufooter :: ufooter"></div>
+
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

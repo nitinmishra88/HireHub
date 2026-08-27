@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Admin Queries</title>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+	<style>
+		.btnr{
+			background-color: #00c6ff;
+		}
+	</style>
+</head>
+
+<body>
+	<div th:replace="~{/fragments/aheader :: aheader}"></div>
+
+	<div class="container mt-5">
+
+		<h3 class="mb-4 text-center">Contact Queries</h3>
+
+		<table class="table table-bordered table-hover shadow">
+			<thead class="table-dark">
+				<tr>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Subject</th>
+					<th>Message</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="q : ${queries}">
+					<td th:text="${q.name}"></td>
+					<td th:text="${q.email}"></td>
+					<td th:text="${q.subject}"></td>
+					<td th:text="${q.message}"></td>
+
+					<td>
+						<a th:href="@{'/admin/reply/' + ${q.id}}" class="btn btn-sm btnr">
+							Reply
+						</a>
+
+						<a th:href="@{'/admin/delete/' + ${q.id}}" class="btn btn-danger btn-sm btn-dark"
+							onclick="return confirm('Delete this query?')">
+							Delete
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+	<div th:replace="~{fragments/afooter :: afooter}"></div>
+
+	<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

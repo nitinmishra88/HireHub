@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Applications - HireHub</title>
+
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+<style>
+
+body{
+    background:#f5f7fa;
+}
+
+.job-section{
+    margin-bottom:50px;
+}
+
+.job-header{
+    background:#0d6efd;
+    color:white;
+    padding:15px 20px;
+    border-radius:10px;
+    margin-bottom:25px;
+}
+
+.application-card{
+    border:none;
+    border-radius:15px;
+    transition:.3s;
+}
+
+.application-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.profile-img{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid #0d6efd;
+}
+
+.status-pending{
+    background:#fff3cd;
+    color:#856404;
+    padding:8px 15px;
+    border-radius:20px;
+}
+
+.status-approved{
+    background:#d4edda;
+    color:#155724;
+    padding:8px 15px;
+    border-radius:20px;
+}
+
+.status-rejected{
+    background:#f8d7da;
+    color:#721c24;
+    padding:8px 15px;
+    border-radius:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div th:replace="/fragments/eheader :: eheader"></div>
+
+<div class="container mt-5">
+
+    <h2 class="text-center mb-5">
+        Job Applications
+    </h2>
+
+    <!-- Job Wise Applications -->
+
+    <div th:each="entry : ${jobMap}"
+         class="job-section">
+
+        <div class="job-header">
+
+            <h4 class="mb-0"
+                th:text="${entry.key}">
+                Job Title
+            </h4>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6 mb-4"
+                 th:each="app : ${entry.value}">
+
+                <div class="card application-card shadow">
+
+                    <div class="card-body">
+
+                        <!-- Profile Photo -->
+
+                        <div class="text-center mb-3">
+
+                            <img th:if="${app.user.profilePhoto != null}"
+                                 th:src="@{'/uploads/' + ${app.user.profilePhoto}}"
+                                 class="profile-img">
+
+                            <img th:if="${app.user.profilePhoto == null}"
+                                 src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                                 class="profile-img">
+
+                        </div>
+
+                        <!-- Applicant Name -->
+
+                        <h4 class="text-center"
+                            th:text="${app.applicantName}">
+                            Name
+                        </h4>
+
+                        <hr>
+
+                        <p>
+                            <strong>Email :</strong>
+                            <span th:text="${app.applicantEmail}"></span>
+                        </p>
+
+                        <p>
+                            <strong>Phone :</strong>
+                            <span th:text="${app.applicantPhone}"></span>
+                        </p>
+
+                        <p>
+                            <strong>Applied Date :</strong>
+                            <span th:text="${app.appliedDate}"></span>
+                        </p>
+
+                        <p th:if="${app.user.qualification != null}">
+                            <strong>Qualification :</strong>
+                            <span th:text="${app.user.qualification}"></span>
+                        </p>
+
+                        <p th:if="${app.user.experience != null}">
+                            <strong>Experience :</strong>
+                            <span th:text="${app.user.experience}"></span>
+                        </p>
+
+                        <p th:if="${app.user.skills != null}">
+                            <strong>Skills :</strong>
+                            <span th:text="${app.user.skills}"></span>
+                        </p>
+
+                        <!-- Status -->
+
+                        <div class="text-center mb-3">
+
+                            <span th:if="${app.status=='Pending'}"
+                                  class="status-pending">
+                                Pending
+                            </span>
+
+                            <span th:if="${app.status=='Approved'}"
+                                  class="status-approved">
+                                Shortlisted
+                            </span>
+
+                            <span th:if="${app.status=='Rejected'}"
+                                  class="status-rejected">
+                                Rejected
+                            </span>
+
+                        </div>
+
+                        <!-- Resume -->
+
+                        <div class="d-grid mb-3">
+
+                            <a th:href="@{'/uploads/' + ${app.user.resume}}"
+                               target="_blank"
+                               class="btn btn-info">
+
+                                View Resume
+
+                            </a>
+
+                        </div>
+
+                        <!-- Action Buttons -->
+
+                        <div class="row">
+
+                            <div class="col-6">
+
+                                <form th:action="@{'/employer/application/approve/' + ${app.id}}"
+                                      method="post">
+
+                                    <button class="btn btn-success w-100">
+                                        Shortlist
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                            <div class="col-6">
+
+                                <form th:action="@{'/employer/application/reject/' + ${app.id}}"
+                                      method="post">
+
+                                    <button class="btn btn-danger w-100">
+                                        Reject
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div th:replace="/fragments/efooter :: efooter"></div>
+
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

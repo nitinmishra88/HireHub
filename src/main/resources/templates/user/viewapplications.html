@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="UTF-8">
+<title>My Applications</title>
+
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+<style>
+
+.status-pending{
+    background:#fff3cd;
+    color:#856404;
+    padding:6px 12px;
+    border-radius:20px;
+}
+
+.status-approved{
+    background:#d4edda;
+    color:#155724;
+    padding:6px 12px;
+    border-radius:20px;
+}
+
+.status-rejected{
+    background:#f8d7da;
+    color:#721c24;
+    padding:6px 12px;
+    border-radius:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div th:replace="/fragments/uheader :: uheader"></div>
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">
+        My Applications
+    </h2>
+
+    <div class="card shadow">
+
+        <div class="card-body">
+
+            <div th:if="${#lists.isEmpty(applications)}"
+                 class="alert alert-info">
+
+                You have not applied for any jobs yet.
+
+            </div>
+
+            <table th:if="${!#lists.isEmpty(applications)}"
+                   class="table table-hover">
+
+                <thead class="table-dark">
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Company</th>
+                        <th>Job Title</th>
+                        <th>Applied Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr th:each="app : ${applications}">
+
+                        <td th:text="${app.id}"></td>
+
+                        <td th:text="${app.job.companyName}"></td>
+
+                        <td th:text="${app.job.jobTitle}"></td>
+
+                        <td th:text="${app.appliedDate}"></td>
+
+                        <td>
+
+                            <span th:if="${app.status == 'Pending'}"
+                                  class="status-pending">
+                                Pending
+                            </span>
+
+                            <span th:if="${app.status == 'Approved'}"
+                                  class="status-approved">
+                                Approved
+                            </span>
+
+                            <span th:if="${app.status == 'Rejected'}"
+                                  class="status-rejected">
+                                Rejected
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <a th:href="@{'/user/application/delete/' + ${app.id}}"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Delete Application?')">
+
+                                Delete
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div th:replace="/fragments/ufooter :: ufooter"></div>
+
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

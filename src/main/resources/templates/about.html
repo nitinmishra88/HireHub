@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>About - HireHub</title>
+
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<style>
+
+/* HERO */
+.hero{
+background: linear-gradient(120deg,#0d6efd,#0b5ed7);
+color:white;
+padding:100px 0;
+text-align:center;
+}
+
+.hero h1{
+font-size:42px;
+font-weight:700;
+}
+
+/* SECTION */
+section{
+padding:80px 0;
+}
+
+/* HEADING */
+h2{
+font-weight:700;
+position:relative;
+display:inline-block;
+}
+
+h2::after{
+content:"";
+width:50%;
+height:3px;
+background:#0d6efd;
+display:block;
+margin:8px 0;
+border-radius:2px;
+}
+
+/* INFO CARDS */
+.info-card{
+border:none;
+border-radius:14px;
+padding:25px;
+height:100%;
+transition:0.3s;
+box-shadow:0 6px 18px rgba(0,0,0,0.08);
+border:1px solid rgba(0,0,0,0.05);
+}
+
+.info-card i{
+font-size:28px;
+color:#0d6efd;
+margin-bottom:10px;
+}
+
+.info-card:hover{
+transform:translateY(-10px);
+box-shadow:0 20px 40px rgba(0,0,0,0.18);
+}
+
+/* VALUE CARDS */
+.value-card{
+border:none;
+border-radius:12px;
+padding:20px;
+text-align:center;
+height:100%;
+transition:0.3s;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+border:1px solid rgba(0,0,0,0.05);
+}
+
+.value-card i{
+font-size:24px;
+color:#0d6efd;
+margin-bottom:8px;
+}
+
+.value-card:hover{
+transform:translateY(-8px);
+box-shadow:0 18px 35px rgba(0,0,0,0.15);
+}
+
+/* FEATURE CARDS */
+.feature-card{
+border:none;
+border-radius:12px;
+padding:20px;
+height:100%;
+transition:0.3s;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+border:1px solid rgba(0,0,0,0.05);
+}
+
+.feature-card:hover{
+transform:translateY(-8px);
+box-shadow:0 18px 35px rgba(0,0,0,0.15);
+}
+
+.feature-card i{
+font-size:26px;
+color:#0d6efd;
+margin-bottom:10px;
+}
+
+/* ABOUT IMAGE */
+.about-img{
+width:100%;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<!-- HERO -->
+<section class="hero">
+<div class="container">
+<h1>About HireHub</h1>
+<p class="lead mt-3">Connecting talent with opportunities</p>
+</div>
+</section>
+
+<!-- WHO WE ARE -->
+<section>
+<div class="container">
+
+<div class="row align-items-center g-5">
+
+<!-- LEFT TEXT -->
+<div class="col-md-6" style="box-shadow:0 6px 18px rgba(0,0,0,0.08); border:1px solid rgba(0,0,0,0.05); padding: 7px;padding-bottom: 15px;padding-top: 15px;">
+
+<h2 class="mb-4">Who We Are</h2>
+
+<p class="text-muted" style="line-height:1.8; font-size:15px;">
+HireHub is a modern job portal that connects job seekers with the right career opportunities. It offers a simple and user-friendly platform where candidates can easily explore jobs based on their skills and interests, while employers can find suitable talent quickly. Our goal is to make the hiring process smooth, fast, and efficient for both job seekers and recruiters.
+</p>
+
+</div>
+
+<!-- RIGHT IMAGE -->
+<div class="col-md-6 text-center">
+
+<img src="/images/abimg.jpeg" alt="About HireHub" class="about-img">
+
+</div>
+
+</div>
+
+</div>
+</section>
+
+<!-- VISION / MISSION -->
+<section class="bg-light">
+<div class="container">
+
+<div class="row g-4 text-center">
+
+<div class="col-md-4">
+<div class="info-card">
+<i class="bi bi-eye"></i>
+<h5>Our Vision</h5>
+<p class="text-muted mb-0">To become a trusted platform where job seekers find the right career opportunities easily.</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="info-card">
+<i class="bi bi-bullseye"></i>
+<h5>Our Mission</h5>
+<p class="text-muted mb-0">To connect employers and candidates through a simple, fast and reliable system.</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="info-card">
+<i class="bi bi-lightning"></i>
+<h5>Our Goal</h5>
+<p class="text-muted mb-0">To make job searching and hiring more efficient using modern technology.</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</section>
+
+<!-- CORE VALUES -->
+<section>
+<div class="container text-center">
+
+<h2 class="mb-5">Core Values</h2>
+
+<div class="row g-4">
+
+<div class="col-md-3">
+<div class="value-card">
+<i class="bi bi-shield-check"></i>
+<h6>Trust</h6>
+<p class="text-muted small mb-0">Reliable platform for users</p>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="value-card">
+<i class="bi bi-people"></i>
+<h6>Collaboration</h6>
+<p class="text-muted small mb-0">Connecting people effectively</p>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="value-card">
+<i class="bi bi-lightbulb"></i>
+<h6>Innovation</h6>
+<p class="text-muted small mb-0">Modern solutions for hiring</p>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="value-card">
+<i class="bi bi-graph-up"></i>
+<h6>Growth</h6>
+<p class="text-muted small mb-0">Helping careers grow</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</section>
+
+<!-- WHY HIREHUB -->
+<section class="bg-light">
+<div class="container text-center">
+
+<h2 class="mb-5">What Makes HireHub Different</h2>
+
+<div class="row g-4">
+
+<div class="col-md-4">
+<div class="feature-card">
+<i class="bi bi-speedometer2"></i>
+<h6>Fast Process</h6>
+<p class="text-muted small mb-0">Quick job search and application experience</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="feature-card">
+<i class="bi bi-ui-checks"></i>
+<h6>Easy Interface</h6>
+<p class="text-muted small mb-0">Simple and clean user interface</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="feature-card">
+<i class="bi bi-briefcase"></i>
+<h6>Quality Jobs</h6>
+<p class="text-muted small mb-0">Curated and verified job listings</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</section>
+
+<!-- FOOTER -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

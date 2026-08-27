@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Manage Users - HireHub</title>
+
+<link rel="stylesheet"
+      href="/bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<div th:replace="~{fragments/aheader :: aheader}"></div>
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Registered Users</h2>
+        <span class="badge bg-primary fs-6">
+            Total Users:
+            <span th:text="${#lists.size(users)}"></span>
+        </span>
+    </div>
+
+    <div class="card shadow">
+
+        <div class="card-body">
+
+            <table class="table table-bordered table-striped table-hover">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th width="120">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr th:each="user : ${users}">
+
+                        <td th:text="${user.id}"></td>
+
+                        <td th:text="${user.name}"></td>
+
+                        <td th:text="${user.email}"></td>
+
+                        <td th:text="${user.phone}"></td>
+
+                        <td>
+                            <a th:href="@{/admin/deleteuser/{id}(id=${user.id})}"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Delete this user?')">
+                                Delete
+                            </a>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div th:replace="~{fragments/afooter :: afooter}"></div>
+
+<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

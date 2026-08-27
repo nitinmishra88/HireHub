@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Reply</title>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+	<div th:replace="~{fragments/aheader :: aheader}"></div>
+
+	<div class="container mt-5" style="margin: 2%;">
+
+		<h3 class="mb-4">Reply to User</h3>
+
+		<form th:action="@{/admin/send}" method="post">
+			<input type="hidden" name="id" th:value="${contact.id}">
+		
+			<div class="mb-3">
+				<label>Email</label>
+				<input type="email" name="email" class="form-control" th:value="${contact.email}" readonly>
+			</div>
+
+			<div class="mb-3">
+				<label>Subject</label>
+				<input type="text" name="subject" class="form-control" th:value="'Re: ' + ${contact.subject}" required>
+			</div>
+
+			<div class="mb-3">
+				<label>Message</label>
+				<textarea name="message" class="form-control" rows="5" required></textarea>
+			</div>
+
+			<button type="submit" class="btn btn-primary">Send</button>
+
+		</form>
+
+	</div>
+	<div th:replace="~{fragments/afooter :: afooter}"></div>
+
+
+	<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
